@@ -7,15 +7,19 @@ type decisionLocalStorage = {
 }
 
 function setDecisionOnLocalStorage(choose: ChoosenButtonOptions) {
-    localStorage.setItem(storageKey, JSON.stringify({ decision: choose }))
+    if (typeof window !== 'undefined') {
+        localStorage.setItem(storageKey, JSON.stringify({ decision: choose }))
+      }
     return;
 }
 
 function getDecisionOnLocalStorage(): decisionLocalStorage | undefined {
-    const decision = localStorage.getItem(storageKey)
-    if (decision) {
-        return JSON.parse(decision)
-    }
+    if (typeof window !== 'undefined') {
+        const decision = localStorage.getItem(storageKey)
+        if (decision) {
+            return JSON.parse(decision)
+        }
+      }
     return
 }
 
